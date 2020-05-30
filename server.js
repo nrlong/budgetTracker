@@ -16,6 +16,15 @@ app.use(express.json());
 app.use(express.static("public"));
 
 
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://jhubudgetapp:jhu2020@budgettracker-4lrle.mongodb.net/test?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
   useNewUrlParser: true,
   useFindAndModify: false
